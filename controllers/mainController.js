@@ -7,6 +7,7 @@ const controller = {
     store: (req, res) => {
 		let resultValidation = validationResult(req);
         console.log(resultValidation);
+
         if(resultValidation.errors.length > 0){
             return res.render('index', {
                 errors: resultValidation.mapped(),
