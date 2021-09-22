@@ -8,6 +8,8 @@ const controller = {
 		let resultValidation = validationResult(req);
         console.log(resultValidation);
 
+        req.session.color = req.body.color;
+
         if(resultValidation.errors.length > 0){
             return res.render('index', {
                 errors: resultValidation.mapped(),
