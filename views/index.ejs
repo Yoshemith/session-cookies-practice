@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Session & Cookies Practice</title>
 </head>
-<body <%= style = "background-color: req.session.color"  %>>
+<body <%= locals.data && data.color ? 'style=background-color:' + data.color : '' %>>
+    <h2>Registro de fomulario</h2>
+
     <% if(locals.data) {%>
         <p>Hola <%= data.name %>, elegiste el color: <%= data.color %>, tu email es:
             <%= data.email %> y tu edad es: <%= data.age %></p>
@@ -23,17 +25,12 @@
             type="text" name="name" 
             value="<%= locals.oldData ? oldData.name : null %>">
         <br><br>
-        <% 
-                let colores = ['Azul', 'Verde', 'Amarillo'];
-        %>
-        <label for="color">Elige un color:</label>
-        <select name="color" id="color">
-            <% for(const color of colores) {%>
-                <option 
-                    value="<%= color %>"
-                    <%= locals.oldData && (color === oldData.color ? 'selected' : null ) %>
-                > <%= color %> </option>
-            <% } %>
+        <label for="color">Elige un color</label>
+        <select name="color">
+            <option value="">Selecciona</option>
+            <option value="#008B8B">Azul</option>
+            <option value="#8FBC8F">Verde</option>
+            <option value="#FFFF00">Amarillo</option>
         </select>
         <br><br>
         <label for="email">Ingrese su email:</label>
@@ -45,6 +42,9 @@
         <input 
             type="text" name="age" 
             value="<%= locals.oldData ? oldData.age : null %>">
+        <br><br>
+        <label for="recordar">Recordar color:</label>
+        <input type="checkbox" name="recordar" id="recordar">
         <br><br>
         <button type="submit">Enviar</button>
     </form>
