@@ -23,9 +23,13 @@ const controller = {
             req.session.color = req.body.color;
             req.session.email = req.body.email;
             req.session.age = req.body.age;
-            return res.render('index', {
+            if(req.body.recordar_color){
+                res.cookie('color', req.body.color, {maxAge: 480 * 1000})
+            }
+            res.redirect('/');
+            /* return res.render('index', {
                 data: req.body
-            });
+            }); */
         }
 	},
     color: function(req, res){
@@ -34,6 +38,11 @@ const controller = {
             return res.render('color', {data})
         }
         res.render('color')
+    },
+    borrar: function(req, res){
+        req.session.color = null;
+		res.cookie('color', null, { maxAge: -1 });
+		res.send('El color se ha borrado');
     }
 };
 
